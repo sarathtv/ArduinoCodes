@@ -1,5 +1,7 @@
+//ESP8266 with schneider meter EM6436
 #include <ModbusRTU.h>
 #include <SoftwareSerial.h>
+
 
 float InttoFloat(uint16_t Data0,uint16_t Data1) {
   float x;
@@ -23,28 +25,28 @@ bool cb(Modbus::ResultCode event, uint16_t transactionId, void* data) { // Callb
 
 void setup() {
   Serial.begin(9600);
-  //S.begin(9600, SWSERIAL_8N1);
   S.begin(9600, SWSERIAL_8E1);
-  mb.begin(&S,D0); // RE/DI connected to D0 of ESP8266
+  mb.begin(&S,D0); // RE/DE connected to D0 of ESP8266
   mb.master();
 }
 
-uint16_t coils[2];
-uint16_t coilval[2];
+uint16_t val[2];
 void loop() {
   
   if (!mb.slave()) {
-    Serial.println("reading reg1");
-     mb.readHreg(1, 3926, coilval, 2, cb);
+    mb.readHreg(1, 3926, val, 2, cb); // Slave id is 1 and register address is 3926 and 
+    //we are reading 2 bytes from the register and saving in val
     while(mb.slave()) { // Check if transaction is active
       mb.task();
-      delay(10);
+      delay(100);
     }
-    Serial.println(coilval[0]);
-    Serial.println(coilval[1]);
-  float voltage= InttoFloat(coilval[1],coilval[0]);
-  Serial.println("voltage= ");
-  Serial.println(voltage);
+    Serial.println("Register Values ");
+    Serial.println(val[0]);
+    Serial.println(val[1]);
+  float voltage= InttoFloat(val[1],val[0]);
+  Serial.println("Voltage= ");
+  Serial.print(voltage);
+  Serial.println("V");
 
       }
   delay(1000);
