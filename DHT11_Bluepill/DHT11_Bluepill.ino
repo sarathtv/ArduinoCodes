@@ -1,7 +1,7 @@
 
 #include "DHT.h"
 
-#define DHTPIN 9     // D4 of nodemcu
+#define DHTPIN PB12     // D4 of nodemcu
 // Uncomment whatever type you're using!
 #define DHTTYPE DHT11   // DHT 11
 //#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321

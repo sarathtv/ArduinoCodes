@@ -1,3 +1,4 @@
+//modbus MASTER code - Reading 1 holding register and 1 coil register
 #include <ModbusRTU.h>
 #include <SoftwareSerial.h>
  

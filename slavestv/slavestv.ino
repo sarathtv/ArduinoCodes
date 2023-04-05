@@ -1,4 +1,4 @@
-
+// modbus SLAVE code for accessing two regsister -1 holding register and 1 coil register
 #include <ModbusRTU.h>
 #include <SoftwareSerial.h>
  
